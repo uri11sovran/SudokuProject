@@ -6,8 +6,12 @@ using System.Threading.Tasks;
 
 namespace SudokuProject
 {
+    /// <summary>
+    /// The interface represents every sudoku 
+    /// input
+    /// </summary>
     public interface ISudokuInput
     {
-        string Text { get; }
+        string Text { get; } // The sudoku baord as a string.
     }
 }

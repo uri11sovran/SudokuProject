@@ -6,6 +6,9 @@ using System.Threading.Tasks;
 
 namespace SudokuProject
 {
+    /// <summary>
+    /// The class is used to get a sudoku string from a text file
+    /// </summary>
     public class TextFile : ISudokuInput
     {
         public string Text { get; }
