@@ -37,6 +37,11 @@ namespace SudokuProject
             }
 
             ValidateSudoku.ValidateSudokuPositioning(this);
+
+            // the first part of the sudoku solver, the operation deletes all impossible 
+            // cell values for each cell of the board.
+            // used as a board setter
+            DeleteOperators();
         }
 
         /// <summary>
@@ -68,6 +73,25 @@ namespace SudokuProject
         public void Set(int value, int x, int y)
         {
             _board[x, y].Value = value;
+        }
+
+        /// <summary>
+        /// The function is used to set the board when its first constructed.
+        /// </summary>
+        /// <param name="board"> The board to initiate. </param>
+        public void DeleteOperators()
+        {
+            Cell curr_cell;
+            int i, j;
+
+            for (i = 0; i < Size; i++)
+            {
+                for (j = 0; j < Size; j++)
+                {
+                    curr_cell = GetCell(i, j);
+                    curr_cell.DeleteOption(Tactics.InvalidOperators(this, i, j));
+                }
+            }
         }
 
         /// <summary>
@@ -131,11 +155,78 @@ namespace SudokuProject
             }
 
             // deletes the option from the squere
-            List<Cell> squere = Tactics.GetSquere(this, row, col);
+            List<Cell> squere = GetSquere(row, col);
             foreach (Cell c in squere)
             {
                 c.DeleteOption(new List<int> { option });
             }
+        }
+
+        /// <summary>
+        /// The funtion is a help function used in the FindSingles function to return a list 
+        /// of cells that represents a column on the board.
+        /// </summary>
+        /// <param name="board"> the sudoku board </param>
+        /// <param name="row"> the row the cell is on </param>
+        /// <param name="col">  the col the cell is on </param>
+        /// <returns> the list of cells </returns>
+        public List<Cell> GetRow(int row, int col)
+        {
+            List<Cell> Row = new List<Cell>();
+
+            for (int i = 0; i < Size; i++)
+            {
+                Row.Add(GetCell(row, i));
+            }
+
+            return Row;
+        }
+
+        /// <summary>
+        /// The funtion is a help function used in the FindSingles function to return a list 
+        /// of cells that represents a row on the board.
+        /// </summary>
+        /// <param name="board"> the sudoku board </param>
+        /// <param name="row"> the row the cell is on </param>
+        /// <param name="col">  the col the cell is on </param>
+        /// <returns> the list of cells </returns>
+        public List<Cell> GetCol(int row, int col)
+        {
+            List<Cell> Col = new List<Cell>();
+
+            for (int i = 0; i < Size; i++)
+            {
+                Col.Add(GetCell(i, col));
+            }
+
+            return Col;
+        }
+
+        /// <summary>
+        /// The funtion is a help function used in the FindSingles function to return a list 
+        /// of cells that represents a squere on the board.
+        /// </summary>
+        /// <param name="board"> the sudoku board </param>
+        /// <param name="row"> the row the cell is on </param>
+        /// <param name="col">  the col the cell is on </param>
+        /// <returns> the list of cells </returns>
+        public List<Cell> GetSquere(int row, int col)
+        {
+            List<Cell> squere = new List<Cell>();
+            int sqrt = (int)Math.Sqrt((int)Size);
+            int boxRowStart = row - row % sqrt;
+            int boxColStart = col - col % sqrt;
+
+            for (int r = boxRowStart; r < boxRowStart + sqrt; r++)
+            {
+                for (int d = boxColStart; d < boxColStart + sqrt; d++)
+                {
+                    if (row != r || col != d)
+                        squere.Add(GetCell(r, d));
+                }
+            }
+
+            return squere;
         }
     }
 }
