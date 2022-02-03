@@ -8,20 +8,31 @@ using System.Threading;
 
 namespace SudokuProject
 {
+    /// <summary>
+    /// The class predormes the hidden/naked single tactics of the sudoku board
+    /// </summary>
     public static class Tactics
     {
+        /// <summary>
+        /// The function calls all the sudoku solving tactics and returns the number of cells reveled
+        /// </summary>
+        /// <param name="board"> the sudoku board </param>
+        /// <returns> the number of cells reveled. </returns>
         public static int tactics(Board board)
         {
             int count;
-
-            count = nakedSingle(board);
-            if(count == -1)
-                return -1;
-
+            count = Singles(board);
+            // open space for furture tactics
             return count;
         }
 
-        public static int nakedSingle(Board board)
+        /// <summary>
+        /// The function preformes the tacatis hidden/naked single and returns the number
+        /// of cells reveled.
+        /// </summary>
+        /// <param name="board"> the sudoku board </param>
+        /// <returns> the number of cells reveled. </returns>
+        public static int Singles(Board board)
         {
             Cell curr_cell;
             int i, j, count = 0;
@@ -53,6 +64,15 @@ namespace SudokuProject
             return count;
         }
 
+        /// <summary>
+        /// The function findes if the given cell position if a hidden sinlge.
+        /// A hidden single is a cell that holds a possible value that the row, column or squere
+        /// his on dont.
+        /// </summary>
+        /// <param name="board"> the sudoku board </param>
+        /// <param name="row"> the row the cell is on </param>
+        /// <param name="col">  the col the cell is on </param>
+        /// <returns> 1 if the cell is a hidden single 0 if not </returns>
         public static int HiddenSingles(Board board, int row, int col)
         {
             int count = 0;
@@ -66,6 +86,15 @@ namespace SudokuProject
             return count;
         }
 
+        /// <summary>
+        /// The funtion finds if a cell is the only one holding a possible value in a sequence of cells.
+        /// The funtion is used in the HiddenSingles funciton to check the row col and squere.
+        /// </summary>
+        /// <param name="board"> the sudoku board </param>
+        /// <param name="sequence"> a list of cells that represents a row, col or squere of cells in the board </param>
+        /// <param name="row"> the row the cell is on </param>
+        /// <param name="col">  the col the cell is on </param>
+        /// <returns> 1 if the cell is a hidden single 0 if not </returns>
         public static int FindSingles(Board board, List<Cell> sequence, int row, int col)
         {
             int i, count = 0;
@@ -97,6 +126,14 @@ namespace SudokuProject
         }
 
         // Helper
+        /// <summary>
+        /// The funtion is a help function used in the FindSingles function to return a list 
+        /// of cells that represents a column on the board.
+        /// </summary>
+        /// <param name="board"> the sudoku board </param>
+        /// <param name="row"> the row the cell is on </param>
+        /// <param name="col">  the col the cell is on </param>
+        /// <returns> the list of cells </returns>
         public static List<Cell> GetRow(Board board, int row, int col)
         {
             List<Cell> Row = new List<Cell>();
@@ -109,6 +146,14 @@ namespace SudokuProject
             return Row;
         }
 
+        /// <summary>
+        /// The funtion is a help function used in the FindSingles function to return a list 
+        /// of cells that represents a row on the board.
+        /// </summary>
+        /// <param name="board"> the sudoku board </param>
+        /// <param name="row"> the row the cell is on </param>
+        /// <param name="col">  the col the cell is on </param>
+        /// <returns> the list of cells </returns>
         public static List<Cell> GetCol(Board board, int row, int col)
         {
             List<Cell> Col = new List<Cell>();
@@ -121,6 +166,14 @@ namespace SudokuProject
             return Col;
         }
 
+        /// <summary>
+        /// The funtion is a help function used in the FindSingles function to return a list 
+        /// of cells that represents a squere on the board.
+        /// </summary>
+        /// <param name="board"> the sudoku board </param>
+        /// <param name="row"> the row the cell is on </param>
+        /// <param name="col">  the col the cell is on </param>
+        /// <returns> the list of cells </returns>
         public static List<Cell> GetSquere(Board board, int row, int col)
         {
             List<Cell> squere = new List<Cell>();
@@ -140,6 +193,14 @@ namespace SudokuProject
             return squere;
         }
 
+        /// <summary>
+        /// the funtion returns every invalid value the cell has.
+        /// an invalid value is a value that has an instance on the row col or squere of the given cell.
+        /// </summary>
+        /// <param name="board"> the sudoku board </param>
+        /// <param name="row"> the row the cell is on </param>
+        /// <param name="col">  the col the cell is on </param>
+        /// <returns> A list contaning all the invalid values.. </returns>
         public static List<int> InvalidOperators(Board board, int row, int col)
         {
             List<int> invalid_numbers = new List<int>();
@@ -164,6 +225,10 @@ namespace SudokuProject
             return invalid_numbers;
         }
 
+        /// <summary>
+        /// The function is used to set the board when its first constructed.
+        /// </summary>
+        /// <param name="board"> The board to initiate. </param>
         public static void DeleteOperators(Board board)
         {
             Cell curr_cell;
