@@ -5,72 +5,44 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace SudokuProject
+namespace SudokuProjectOmega
 {
     public class Program
     {
-        /*static void PrintBoardSimlpe(Board board)
+        static string Solve(string sudoku, int choice)
         {
-            int i, j;
+            Board? board = null;
 
-            for (i = 0; i < board.Size; i++)
+            // Handle possible board exceptions
+            try
             {
-                for (j = 0; j < board.Size; j++)
-                {
-                    Console.Write("{0} ", (char)(board.Get(i, j) + '0'));
-                }
-                Console.WriteLine();
+                board = HandleUserInput.TranslateToBoard(sudoku, choice);
             }
-        }*/
-
-        /// <summary>
-        /// The Function is a help function used to print "___" abouve each number.
-        /// The function is used in the PrintBoard function
-        /// </summary>
-        /// <param name="len"> the lenght of the line. Related to the size of the sudoku </param>
-        static void PrintLine(int len)
-        {
-            int i, counter = 0;
-            for (i = 0; i < len * 5; i++)
+            catch (SudokuException invalid_sudoku)
             {
-                if (counter == 0 || counter == 5)
-                {
-                    if (counter == 5)
-                        counter = 0;
-                    Console.Write(" ");
-                }
-                Console.Write("-");
-                counter++;
+                return invalid_sudoku.Message;
             }
-            Console.WriteLine();
-        }
-
-        /// <summary>
-        /// The function prints a sudoku board
-        /// </summary>
-        /// <param name="board"> The board to print </param>
-        static void PrintBoard(Board board)
-        {
-            int i, j;
-
-            for (i = 0; i < board.Size; i++)
+            catch (System.IO.FileNotFoundException)
             {
-                PrintLine((int)board.Size);
-                for (j = 0; j < board.Size; j++)
-                    Console.Write("|     ");
-                Console.WriteLine("|");
-
-                for (j = 0; j < board.Size; j++)
-                {
-                    Console.Write("|  {0}  ", (char)(board.Get(i, j) + '0'));
-                }
-                Console.WriteLine("|");
-
-                for (j = 0; j < board.Size; j++)
-                    Console.Write("|     ");
-                Console.WriteLine("|");
+                return "The file does not exist";
             }
-            PrintLine((int)(board.Size));
+
+            // the board will be null if the user enterd 0 - exit
+            if (board == null)
+                return "exit";
+
+            Stopwatch stopwatch = new Stopwatch();
+            stopwatch.Start();
+            if (!SudokuSolver.Solve(board))
+                return "Unsolvable board";
+
+            ValidateSudoku.ValidateSudokuPositioning(board);
+            Print.PrintBoard(board);
+
+            stopwatch.Stop();
+            Console.WriteLine("Elapsed Time is {0} ms", stopwatch.ElapsedMilliseconds);
+
+            return board.ToString(); // return a ToString of the board
         }
 
         /// <summary>
@@ -81,38 +53,14 @@ namespace SudokuProject
         /// <returns> Returns 0 if the user wanted to stop the operation, 1 if the user whats to continue. </returns>
         static int Game()
         {
-            Board? board = null;
+            int choice = HandleUserInput.GetInput();
+            string sudoku = HandleUserInput.getSudokuInput(choice);
 
-            // Handle possible board exceptions
-            try
-            {
-                board = HandleUserInput.Menu();
-            } catch (SudokuException invalid_sudoku) {
-                Console.WriteLine(invalid_sudoku.Message);
-                return 1;
-            } catch (System.IO.FileNotFoundException) {
-                Console.WriteLine("The file does not exist");
-                return 1;
-            }
+            string result = Solve(sudoku, choice);
 
-            // the board will be null if the user enterd 0 - exit
-            if (board == null)
+            if (result.Equals("exit"))
                 return 0;
-
-            Stopwatch stopwatch = new Stopwatch();
-            stopwatch.Start();
-            if (!SudokuSolver.Solve(board))
-            {
-                Console.WriteLine("invalid board");
-                PrintBoard(board);
-            }
-            else
-            {
-                ValidateSudoku.ValidateSudokuPositioning(board);
-                PrintBoard(board);
-            }
-            stopwatch.Stop();
-            Console.WriteLine("Elapsed Time is {0} ms", stopwatch.ElapsedMilliseconds); 
+            Console.WriteLine(result);
 
             return 1;
         }

@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace SudokuProject
+namespace SudokuProjectOmega
 {
 
     /// <summary>
@@ -19,34 +19,22 @@ namespace SudokuProject
         /// </summary>
         /// <returns> The board sudoku board.
         /// null if the user entered 0 </returns>
-        public static Board? Menu()
+        public static Board? TranslateToBoard(string sudoku, int choice)
         {
             Board? board = null; // the board holding the sudoku
             ISudokuInput input; // the sudoku itself
-            int user_input; // the users choice
 
-            Console.WriteLine("1. Enter a string representation of the sudoku board");
-            Console.WriteLine("2. Enter a name of a text file");
-            Console.WriteLine("0: EXIT");
-
-            user_input = GetInput();
-            switch (user_input)
+            switch (choice)
             {
-                case 0:
-                    Console.WriteLine("Good Bye!");
-                    break;
-
                 case 1:
                     // is the user enterd a string
-                    Console.WriteLine("Enter the sudoku string representation");
-                    input = new SudokuString(Console.ReadLine());
+                    input = new SudokuString(sudoku);
                     board = new Board(input);
                     break;
 
                 case 2:
                     // is the user enterd a file path
-                    Console.WriteLine("Enter the file path that holds the sudoku string representation");
-                    input = new TextFile(Console.ReadLine());
+                    input = new TextFile(sudoku);
                     board = new Board(input);
                     break;
             }
@@ -59,9 +47,13 @@ namespace SudokuProject
         /// Is used to get the users choice in the Menu function.
         /// </summary>
         /// <returns> The users choice. </returns>
-        private static int GetInput()
+        public static int GetInput()
         {
             int input = -1;
+
+            Console.WriteLine("1. Enter a string representation of the sudoku board");
+            Console.WriteLine("2. Enter a name of a text file");
+            Console.WriteLine("0: EXIT");
 
             while (input == -1)
             {
@@ -87,6 +79,32 @@ namespace SudokuProject
             }
 
             return input;
+        }
+
+        public static string getSudokuInput(int choice)
+        {
+            string sudoku = null;
+
+            switch (choice)
+            {
+                case 0:
+                    Console.WriteLine("Good Bye!");
+                    break;
+
+                case 1:
+                    // is the user enterd a string
+                    Console.WriteLine("Enter the sudoku string representation");
+                    sudoku = Console.ReadLine();
+                    break;
+
+                case 2:
+                    // is the user enterd a file path
+                    Console.WriteLine("Enter the file path that holds the sudoku string representation");
+                    sudoku = Console.ReadLine();
+                    break;
+            }
+
+            return sudoku;
         }
     }
 }

@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace SudokuProject
+namespace SudokuProjectOmega
 {
     /// <summary>
     /// The class is an exception that is thrown when the user enterd an impossible

@@ -6,7 +6,7 @@ using System.Linq;
 using System.Text;
 using System.Threading;
 
-namespace SudokuProject
+namespace SudokuProjectOmega
 {
     /// <summary>
     /// The class predormes the hidden/naked single tactics of the sudoku board

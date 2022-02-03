@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace SudokuProject
+namespace SudokuProjectOmega
 {
     /// <summary>
     /// The is a statics call with the role of validating the sudoku input.

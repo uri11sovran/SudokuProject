@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace SudokuProject
+namespace SudokuProjectOmega
 {
     /// <summary>
     /// The class represents a cell in the sudoku board.

@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace SudokuProject
+namespace SudokuProjectOmega
 {
     /// <summary>
     /// The class is a sudoku board that holds all the possible cells
@@ -227,6 +227,22 @@ namespace SudokuProject
             }
 
             return squere;
+        }
+
+        public override string ToString()
+        {
+            StringBuilder board_str = new StringBuilder();
+            int i, j;
+
+            for (i = 0; i < Size; i++)
+            {
+                for (j = 0; j < Size; j++)
+                {
+                    board_str.Append((char)(_board[i,j].Value + '0'));
+                }
+            }
+
+            return board_str.ToString();
         }
     }
 }
