@@ -77,11 +77,11 @@ namespace SudokuProject
         {
             int count = 0;
 
-            count += FindSingles(board, GetRow(board, row, col), row, col);
+            count += FindSingles(board, board.GetRow(row, col), row, col);
             if(count == 0)
-                count += FindSingles(board, GetCol(board, row, col), row, col);
+                count += FindSingles(board, board.GetCol(row, col), row, col);
             if(count == 0)
-                count += FindSingles(board, GetSquere(board, row, col), row, col);
+                count += FindSingles(board, board.GetSquere(row, col), row, col);
 
             return count;
         }
@@ -126,72 +126,7 @@ namespace SudokuProject
         }
 
         // Helper
-        /// <summary>
-        /// The funtion is a help function used in the FindSingles function to return a list 
-        /// of cells that represents a column on the board.
-        /// </summary>
-        /// <param name="board"> the sudoku board </param>
-        /// <param name="row"> the row the cell is on </param>
-        /// <param name="col">  the col the cell is on </param>
-        /// <returns> the list of cells </returns>
-        public static List<Cell> GetRow(Board board, int row, int col)
-        {
-            List<Cell> Row = new List<Cell>();
-
-            for (int i = 0; i < board.Size; i++)
-            {
-                Row.Add(board.GetCell(row, i));
-            }
-
-            return Row;
-        }
-
-        /// <summary>
-        /// The funtion is a help function used in the FindSingles function to return a list 
-        /// of cells that represents a row on the board.
-        /// </summary>
-        /// <param name="board"> the sudoku board </param>
-        /// <param name="row"> the row the cell is on </param>
-        /// <param name="col">  the col the cell is on </param>
-        /// <returns> the list of cells </returns>
-        public static List<Cell> GetCol(Board board, int row, int col)
-        {
-            List<Cell> Col = new List<Cell>();
-
-            for (int i = 0; i < board.Size; i++)
-            {
-                Col.Add(board.GetCell(i, col));
-            }
-
-            return Col;
-        }
-
-        /// <summary>
-        /// The funtion is a help function used in the FindSingles function to return a list 
-        /// of cells that represents a squere on the board.
-        /// </summary>
-        /// <param name="board"> the sudoku board </param>
-        /// <param name="row"> the row the cell is on </param>
-        /// <param name="col">  the col the cell is on </param>
-        /// <returns> the list of cells </returns>
-        public static List<Cell> GetSquere(Board board, int row, int col)
-        {
-            List<Cell> squere = new List<Cell>();
-            int sqrt = (int)Math.Sqrt((int)board.Size);
-            int boxRowStart = row - row % sqrt;
-            int boxColStart = col - col % sqrt;
-
-            for (int r = boxRowStart; r < boxRowStart + sqrt; r++)
-            {
-                for (int d = boxColStart; d < boxColStart + sqrt; d++)
-                {
-                    if(row != r || col != d)
-                        squere.Add(board.GetCell(r, d));
-                }
-            }
-
-            return squere;
-        }
+        
 
         /// <summary>
         /// the funtion returns every invalid value the cell has.
@@ -215,7 +150,7 @@ namespace SudokuProject
                     invalid_numbers.Add(board.Get(i, col));
             }
 
-            squere = GetSquere(board, row, col);
+            squere = board.GetSquere(row, col);
             foreach (Cell c in squere)
             {
                 if (c.Value != 0)
@@ -223,25 +158,6 @@ namespace SudokuProject
             }
 
             return invalid_numbers;
-        }
-
-        /// <summary>
-        /// The function is used to set the board when its first constructed.
-        /// </summary>
-        /// <param name="board"> The board to initiate. </param>
-        public static void DeleteOperators(Board board)
-        {
-            Cell curr_cell;
-            int i, j;
-
-            for (i = 0; i < board.Size; i++)
-            {
-                for (j = 0; j < board.Size; j++)
-                {
-                    curr_cell = board.GetCell(i, j);
-                    curr_cell.DeleteOption(InvalidOperators(board, i, j));
-                }
-            }
         }
     }
 }
