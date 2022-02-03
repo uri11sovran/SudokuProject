@@ -6,13 +6,24 @@ using System.Threading.Tasks;
 
 namespace SudokuProject
 {
+
+    /// <summary>
+    /// The class is a static user input hendler that gets the user input,
+    /// validets it and returns a board representation of the input
+    /// </summary>
     static class HandleUserInput
     {
+        /// <summary>
+        /// The function gets a user string representaion of a sudoku and returns a 
+        /// board representation of the same sudoku
+        /// </summary>
+        /// <returns> The board sudoku board.
+        /// null if the user entered 0 </returns>
         public static Board? Menu()
         {
-            Board? board = null;
-            ISudokuInput input;
-            int user_input = 1;
+            Board? board = null; // the board holding the sudoku
+            ISudokuInput input; // the sudoku itself
+            int user_input; // the users choice
 
             Console.WriteLine("1. Enter a string representation of the sudoku board");
             Console.WriteLine("2. Enter a name of a text file");
@@ -26,12 +37,14 @@ namespace SudokuProject
                     break;
 
                 case 1:
+                    // is the user enterd a string
                     Console.WriteLine("Enter the sudoku string representation");
                     input = new SudokuString(Console.ReadLine());
                     board = new Board(input);
                     break;
 
                 case 2:
+                    // is the user enterd a file path
                     Console.WriteLine("Enter the file path that holds the sudoku string representation");
                     input = new TextFile(Console.ReadLine());
                     board = new Board(input);
@@ -41,6 +54,11 @@ namespace SudokuProject
             return board;
         }
 
+        /// <summary>
+        /// This is a help function that serves as a user choice getter.
+        /// Is used to get the users choice in the Menu function.
+        /// </summary>
+        /// <returns> The users choice. </returns>
         private static int GetInput()
         {
             int input = -1;
