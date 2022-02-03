@@ -99,11 +99,6 @@ namespace SudokuProject
             if (board == null)
                 return 0;
 
-            // the first part of the sudoku solver, the operation deletes all impossible 
-            // cell values for each cell of the board.
-            // used as a board setter
-            Tactics.DeleteOperators(board);
-
             Stopwatch stopwatch = new Stopwatch();
             stopwatch.Start();
             if (!SudokuSolver.Solve(board))
