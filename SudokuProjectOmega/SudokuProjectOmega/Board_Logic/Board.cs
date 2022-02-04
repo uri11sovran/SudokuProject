@@ -11,8 +11,10 @@ namespace SudokuProjectOmega
     /// </summary>
     public class Board
     {
-        private Cell[,] _board; // a natrix of all sudoku cells
+        public ISudokuInput Input { get; set; }
         public int? Size { get; set; } // teh size of the board (highet and width)
+
+        private Cell[,] _board; // a natrix of all sudoku cells
 
         /// <summary>
         /// The function is a generic board constractor.
@@ -35,6 +37,7 @@ namespace SudokuProjectOmega
                     _board[i, j] = new Cell((int)Size, i, j, sudoku.Text[i * (int)Size + j] - '0');
                 }
             }
+            Input = sudoku;
 
             ValidateSudoku.ValidateSudokuPositioning(this);
 
