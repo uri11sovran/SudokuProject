@@ -15,7 +15,9 @@ namespace SudokuProjectOmega
         /// from the ui to the solving algorithm.
         /// </summary>
         /// <param name="sudoku"> The sudoku input </param>
-        /// <param name="choice"> 0 - exit, 1 - string, 2 - text file </param>
+        /// <param name="choice"> 0 - exit, 
+        ///                       1 - string, 
+        ///                       2 - text file </param>
         /// <returns> The sudoku solution or error massage. </returns>
         public static string Solve(string sudoku, int choice)
         {
@@ -44,10 +46,13 @@ namespace SudokuProjectOmega
 
             Stopwatch stopwatch = new Stopwatch();
             stopwatch.Start();
+
+            // if the Solve function in the SudokuSolver returns false
+            // the board is unsolvable
             if (!SudokuSolver.Solve(board))
                 return "Unsolvable board";
 
-            ValidateSudoku.ValidateSudokuPositioning(board);
+            ValidateSudoku.ValidateSudokuPositioning(board); // delete later
             Print.PrintBoard(board);
 
             stopwatch.Stop();
@@ -64,8 +69,8 @@ namespace SudokuProjectOmega
         static int Game()
         {
             int choice = HandleUserInput.GetInput();
+            Console.Clear();
             string sudoku = HandleUserInput.getSudokuInput(choice);
-
             string result = Solve(sudoku, choice);
 
             if (result.Equals("exit"))
