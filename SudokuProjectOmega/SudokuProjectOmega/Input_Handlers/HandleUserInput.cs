@@ -27,13 +27,13 @@ namespace SudokuProjectOmega
             switch (choice)
             {
                 case 1:
-                    // is the user enterd a string
+                    // if the user enterd a string
                     input = new SudokuString(sudoku);
                     board = new Board(input);
                     break;
 
                 case 2:
-                    // is the user enterd a file path
+                    // if the user enterd a file path
                     input = new TextFile(sudoku);
                     board = new Board(input);
                     break;
