@@ -9,9 +9,12 @@ namespace SudokuProjectOmega
 {
     public class Program
     {
-        static string Solve(string sudoku, int choice)
+        public static string Solve(string sudoku, int choice)
         {
             Board? board = null;
+
+            if (choice != 0 && sudoku.Equals(""))
+                return "Invalid Board: empty board";
 
             // Handle possible board exceptions
             try
