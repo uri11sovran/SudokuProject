@@ -6,6 +6,9 @@ using System.Threading.Tasks;
 
 namespace SudokuProjectOmega
 { 
+    /// <summary>
+    /// The class prints the board in a natrix format
+    /// </summary>
     public static class Print
     {
         /// <summary>
