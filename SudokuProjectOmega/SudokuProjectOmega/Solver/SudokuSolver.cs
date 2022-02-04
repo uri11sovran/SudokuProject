@@ -80,7 +80,7 @@ namespace SudokuProjectOmega
             curr_cell.DeleteOption(Tactics.InvalidOperators(board, curr_cell.Row, curr_cell.Col));
 
             // the loop goes over every possible value of the cell
-            foreach (int option in curr_cell.options)
+            foreach (int option in curr_cell.GetOptions())
             {
                 board.Set(option, curr_cell.Row, curr_cell.Col); // sets a guess (one of the possible cell values)
                 // sends to the solve board to comtinue solving the board

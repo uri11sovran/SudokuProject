@@ -50,7 +50,7 @@ namespace SudokuProjectOmega
                             curr_cell.DeleteOption(InvalidOperators(board, i, j));
                             if (curr_cell.NumOfOptions() == 1)
                             {
-                                curr_cell.Value = curr_cell.options[0];
+                                curr_cell.Value = curr_cell.GetOption(0);
                                 count++;
                                 board.DeleteOptionFromAll(curr_cell.Value, i, j);
                             }
@@ -99,7 +99,7 @@ namespace SudokuProjectOmega
         {
             int i, count = 0;
             bool does_exist = false;
-            int[] options = board.GetCell(row, col).options;
+            int[] options = board.GetCell(row, col).GetOptions();
 
             foreach (int option in options)
             {
