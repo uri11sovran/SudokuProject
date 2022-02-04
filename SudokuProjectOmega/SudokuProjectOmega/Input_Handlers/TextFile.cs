@@ -15,6 +15,8 @@ namespace SudokuProjectOmega
 
         public TextFile(string path)
         {
+            if (!path.Contains("txt"))
+                throw new NotText();
             Text = System.IO.File.ReadAllText(path);
         }
     }
