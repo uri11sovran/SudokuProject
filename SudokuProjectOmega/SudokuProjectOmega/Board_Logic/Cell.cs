@@ -15,7 +15,8 @@ namespace SudokuProjectOmega
         public int Value { get; set; } // The number the cell holdes
         public int Row { get; set; } // the row the cell is on
         public int Col { get; set; } // the column the cell is on
-        public int[] options { get; set; } // all the possible cell values
+
+        private int[] options; // all the possible cell values
 
         /// <summary>
         /// The function is a cell constractor sets the cell
@@ -35,6 +36,16 @@ namespace SudokuProjectOmega
             // sets every cell option
             for (int i = 0; i < board_len; i++)
                 options[i] = i + 1;
+        }
+
+        public int GetOption(int index)
+        {
+            return options[index];
+        }
+
+        public int[] GetOptions()
+        {
+            return options;
         }
 
         /// <summary>
