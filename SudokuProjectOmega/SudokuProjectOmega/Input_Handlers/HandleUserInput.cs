@@ -81,24 +81,30 @@ namespace SudokuProjectOmega
             return input;
         }
 
+        /// <summary>
+        /// The funtion gets and returns the user input
+        /// </summary>
+        /// <param name="choice"> The type of input the user whats to enter </param>
+        /// <returns> the user input </returns>
         public static string getSudokuInput(int choice)
         {
             string sudoku = null;
 
             switch (choice)
             {
+                // exit
                 case 0:
                     Console.WriteLine("Good Bye!");
                     break;
 
+                // is the user enterd a string
                 case 1:
-                    // is the user enterd a string
                     Console.WriteLine("Enter the sudoku string representation");
                     sudoku = Console.ReadLine();
                     break;
 
+                // is the user enterd a file path
                 case 2:
-                    // is the user enterd a file path
                     Console.WriteLine("Enter the file path that holds the sudoku string representation");
                     sudoku = Console.ReadLine();
                     break;

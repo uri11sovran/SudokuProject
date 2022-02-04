@@ -229,9 +229,15 @@ namespace SudokuProjectOmega
             return squere;
         }
 
+        /// <summary>
+        /// The function returns a string representation of the sudoku board.
+        /// Overrides the Object funtion ToString().
+        /// Is used in the Solve funtion to return a strign of the sudoku.
+        /// </summary>
+        /// <returns> The sudoku string representation </returns>
         public override string ToString()
         {
-            StringBuilder board_str = new StringBuilder();
+            StringBuilder board_str = new StringBuilder(); // The sudoku string representation
             int i, j;
 
             for (i = 0; i < Size; i++)

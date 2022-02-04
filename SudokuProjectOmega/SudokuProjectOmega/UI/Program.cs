@@ -9,6 +9,14 @@ namespace SudokuProjectOmega
 {
     public class Program
     {
+        /// <summary>
+        /// This function operates like a main function,
+        /// it connects all the diffrent parts of the sudoku solver
+        /// from the ui to the solving algorithm.
+        /// </summary>
+        /// <param name="sudoku"> The sudoku input </param>
+        /// <param name="choice"> 0 - exit, 1 - string, 2 - text file </param>
+        /// <returns> The sudoku solution or error massage. </returns>
         public static string Solve(string sudoku, int choice)
         {
             Board? board = null;
@@ -49,9 +57,8 @@ namespace SudokuProjectOmega
         }
 
         /// <summary>
-        /// This function operates like a main function,
-        /// it connects all the diffrent parts of the sudoku solver
-        /// from the ui to the solving algorithm.
+        /// The function handles printing the sudoku result and getting the 
+        /// initial sudoku input
         /// </summary>
         /// <returns> Returns 0 if the user wanted to stop the operation, 1 if the user whats to continue. </returns>
         static int Game()
