@@ -8,13 +8,7 @@ using System.Threading.Tasks;
 namespace SudokuProjectOmega
 {
     public class Program
-    {
-        public static void HandleDataFile(Board board)
-        {
-            TextFile file = (TextFile)(board.Input);
-            file.WriteToFile(board.ToString());
-        }
-
+    { 
         /// <summary>
         /// This function operates like a main function,
         /// it connects all the diffrent parts of the sudoku solver
@@ -68,6 +62,16 @@ namespace SudokuProjectOmega
                 HandleDataFile(board);
 
             return board.ToString(); // return a ToString of the board
+        }
+
+        /// <summary>
+        /// The funtion writes to a file the sudoku solution
+        /// </summary>
+        /// <param name="board"> The board to print </param>
+        public static void HandleDataFile(Board board)
+        {
+            TextFile file = (TextFile)(board.Input);
+            file.WriteToFile(board.ToString());
         }
 
         /// <summary>

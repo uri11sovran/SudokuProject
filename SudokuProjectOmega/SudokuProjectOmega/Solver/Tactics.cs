@@ -125,9 +125,6 @@ namespace SudokuProjectOmega
             return count;
         }
 
-        // Helper
-        
-
         /// <summary>
         /// the funtion returns every invalid value the cell has.
         /// an invalid value is a value that has an instance on the row col or squere of the given cell.

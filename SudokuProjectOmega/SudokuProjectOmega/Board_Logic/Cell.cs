@@ -38,11 +38,21 @@ namespace SudokuProjectOmega
                 options[i] = i + 1;
         }
 
+        /// <summary>
+        /// The function returns the value of an option in a given 
+        /// position
+        /// </summary>
+        /// <param name="index"> the index of the option </param>
+        /// <returns> the option </returns>
         public int GetOption(int index)
         {
             return options[index];
         }
 
+        /// <summary>
+        /// The funtion returns the options array
+        /// </summary>
+        /// <returns></returns>
         public int[] GetOptions()
         {
             return options;

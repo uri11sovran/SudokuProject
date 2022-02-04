@@ -22,6 +22,10 @@ namespace SudokuProjectOmega
             _new_file = path.Replace(".txt", "_solved.txt");
         }
 
+        /// <summary>
+        /// A funtion that whrites the solved sudoku board to the new text file
+        /// </summary>
+        /// <param name="sudoku"></param>
         public void WriteToFile(string sudoku)
         {
             File.WriteAllText(_new_file, sudoku);
