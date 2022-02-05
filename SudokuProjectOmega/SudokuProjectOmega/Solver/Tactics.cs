@@ -54,7 +54,7 @@ namespace SudokuProjectOmega
                         if (curr_cell.Value == 0)
                         {
                             // deletes former cell option that were reveled
-                            curr_cell.DeleteOption(InvalidOperators(board, i, j));
+                            curr_cell.DeleteOption(InvalidOptions(board, i, j));
                             // if the cell has only one opiton, the cell is a naked single
                             if (curr_cell.NumOfOptions() == 1)
                             {
@@ -143,7 +143,7 @@ namespace SudokuProjectOmega
         /// <param name="row"> the row the cell is on </param>
         /// <param name="col">  the col the cell is on </param>
         /// <returns> A list contaning all the invalid values.. </returns>
-        public static List<int> InvalidOperators(Board board, int row, int col)
+        public static List<int> InvalidOptions(Board board, int row, int col)
         {
             List<int> invalid_options = new List<int>(); // a list of the invalid options
             List<Cell> squere; // a list of cells in the cells squere

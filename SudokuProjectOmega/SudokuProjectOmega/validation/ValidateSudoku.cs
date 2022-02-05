@@ -65,7 +65,7 @@ namespace SudokuProjectOmega
                 for (j = 0; j < board.Size; j++)
                 {
                     if(board.Get(i, j) != 0 && 
-                        !ValidatePosition(Tactics.InvalidOperators(board, i, j), board.Get(i, j)))
+                        !ValidatePosition(Tactics.InvalidOptions(board, i, j), board.Get(i, j)))
                     {
                         throw new InvalidBoradPositioning();
                     }
