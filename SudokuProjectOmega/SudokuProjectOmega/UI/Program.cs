@@ -7,8 +7,42 @@ using System.Threading.Tasks;
 
 namespace SudokuProjectOmega
 {
+    /// <summary>
+    /// Main class. runs the sudoku solving 
+    /// operation.
+    /// </summary>
     public class Program
-    { 
+    {
+        static void Main(string[] args)
+        {
+            int program_status = 1;
+
+            Console.WriteLine("This is a sudoku solver!\n");
+            Console.WriteLine("You enter a sudoku board and the program solves it.");
+            while (program_status != 0)
+            {
+                program_status = Game();
+            }
+        }
+
+        /// <summary>
+        /// The function handles printing the sudoku result and getting the 
+        /// initial sudoku input
+        /// </summary>
+        /// <returns> Returns 0 if the user wanted to stop the operation, 1 if the user whats to continue. </returns>
+        static int Game()
+        {
+            int choice = HandleUserInput.GetInput();
+            Console.Clear();
+            string sudoku = HandleUserInput.getSudokuInput(choice);
+            string result = Solve(sudoku, choice);
+
+            if (result.Equals("exit"))
+                return 0;
+
+            return 1;
+        }
+
         /// <summary>
         /// This function operates like a main function,
         /// it connects all the diffrent parts of the sudoku solver
@@ -33,10 +67,12 @@ namespace SudokuProjectOmega
             }
             catch (SudokuException invalid_sudoku)
             {
+                Console.WriteLine(invalid_sudoku.Message);
                 return invalid_sudoku.Message;
             }
             catch (System.IO.FileNotFoundException)
             {
+                Console.WriteLine("The file does not exist");
                 return "The file does not exist";
             }
 
@@ -44,24 +80,16 @@ namespace SudokuProjectOmega
             if (board == null)
                 return "exit";
 
-            Stopwatch stopwatch = new Stopwatch();
-            stopwatch.Start();
-
             // if the Solve function in the SudokuSolver returns false
             // the board is unsolvable
             if (!SudokuSolver.Solve(board))
                 return "Unsolvable board";
-
-            ValidateSudoku.ValidateSudokuPositioning(board); // delete later
             Print.PrintBoard(board);
-
-            stopwatch.Stop();
-            Console.WriteLine("Elapsed Time is {0} ms", stopwatch.ElapsedMilliseconds);
 
             if(choice == 2)
                 HandleDataFile(board);
 
-            return board.ToString(); // return a ToString of the board
+            return board.ToString(); // return a string representation of the board
         }
 
         /// <summary>
@@ -72,37 +100,6 @@ namespace SudokuProjectOmega
         {
             TextFile file = (TextFile)(board.Input);
             file.WriteToFile(board.ToString());
-        }
-
-        /// <summary>
-        /// The function handles printing the sudoku result and getting the 
-        /// initial sudoku input
-        /// </summary>
-        /// <returns> Returns 0 if the user wanted to stop the operation, 1 if the user whats to continue. </returns>
-        static int Game()
-        {
-            int choice = HandleUserInput.GetInput();
-            Console.Clear();
-            string sudoku = HandleUserInput.getSudokuInput(choice);
-            string result = Solve(sudoku, choice);
-
-            if (result.Equals("exit"))
-                return 0;
-            Console.WriteLine(result);
-
-            return 1;
-        }
-
-        static void Main(string[] args)
-        {
-            int program_status = 1;
-
-            Console.WriteLine("This is a sudoku solver!\n");
-            Console.WriteLine("You enter a sudoku board and the program solves it.");
-            while(program_status != 0)
-            {
-                program_status = Game();
-            }
         }
     }
 }

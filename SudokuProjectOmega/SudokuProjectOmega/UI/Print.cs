@@ -12,28 +12,6 @@ namespace SudokuProjectOmega
     public static class Print
     {
         /// <summary>
-        /// The Function is a help function used to print "___" abouve each number.
-        /// The function is used in the PrintBoard function
-        /// </summary>
-        /// <param name="len"> the lenght of the line. Related to the size of the sudoku </param>
-        public static void PrintLine(int len)
-        {
-            int i, counter = 0;
-            for (i = 0; i < len * 5; i++)
-            {
-                if (counter == 0 || counter == 5)
-                {
-                    if (counter == 5)
-                        counter = 0;
-                    Console.Write(" ");
-                }
-                Console.Write("-");
-                counter++;
-            }
-            Console.WriteLine();
-        }
-
-        /// <summary>
         /// The function prints a sudoku board
         /// </summary>
         /// <param name="board"> The board to print </param>
@@ -59,6 +37,29 @@ namespace SudokuProjectOmega
                 Console.WriteLine("|");
             }
             PrintLine((int)(board.Size));
+        }
+
+
+        /// <summary>
+        /// The Function is a help function used to print "___" abouve each number.
+        /// The function is used in the PrintBoard function
+        /// </summary>
+        /// <param name="len"> the lenght of the line. Related to the size of the sudoku </param>
+        public static void PrintLine(int len)
+        {
+            int i, counter = 0;
+            for (i = 0; i < len * 5; i++)
+            {
+                if (counter == 0 || counter == 5)
+                {
+                    if (counter == 5)
+                        counter = 0;
+                    Console.Write(" ");
+                }
+                Console.Write("-");
+                counter++;
+            }
+            Console.WriteLine();
         }
     }
 }

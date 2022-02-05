@@ -31,14 +31,17 @@ namespace SudokuProjectOmega
         /// <returns> true if the board was solved, false if not. </returns>
         public static bool Solve(Board board)
         {
-            int count = 0;
+            int count = 0; // a counter of the amout of cells solved in each run
 
+            // preformes sudoku tactics on the board
             count = Tactics.tactics(board);
 
+            // checks if the program solved the board
             if (CheckIfBoardFull(board))
                return true;
 
-            if (count == -1)
+            // The backtracking guess was wrong
+            if (count == -1) 
                 return false;
 
             if(count == 0)
@@ -108,6 +111,7 @@ namespace SudokuProjectOmega
             {
                 for (j = 0; j < board.Size; j++)
                 {
+                    // findes the cell with the leat number of options
                     if (board.GetCell(i, j).Value == 0 && (smallest_cell == null || board.GetCell(i, j).NumOfOptions() < min))
                     {
                         smallest_cell = board.GetCell(i, j);
