@@ -89,7 +89,8 @@ namespace SudokuProjectOmega
             }
             Print.PrintBoard(board);
 
-            if(choice == 2)
+            // if the user enterd a file as an input, return to a file the solved sudoku
+            if (choice == 2)
                 HandleDataFile(board);
 
             return board.ToString(); // return a string representation of the board
