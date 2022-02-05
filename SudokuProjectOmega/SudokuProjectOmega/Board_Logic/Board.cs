@@ -94,7 +94,7 @@ namespace SudokuProjectOmega
                 {
                     // deletes all impossible cell values
                     curr_cell = GetCell(i, j);
-                    curr_cell.DeleteOption(Tactics.InvalidOperators(this, i, j));
+                    curr_cell.DeleteOption(Tactics.InvalidOptions(this, i, j));
                 }
             }
         }

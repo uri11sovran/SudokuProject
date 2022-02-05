@@ -80,7 +80,7 @@ namespace SudokuProjectOmega
             // is used to reload the state old state of the board if the guess was incorrect
             Cell[,] cells = board.CloneBoard();
             // delets the options around the cell to guess
-            curr_cell.DeleteOption(Tactics.InvalidOperators(board, curr_cell.Row, curr_cell.Col));
+            curr_cell.DeleteOption(Tactics.InvalidOptions(board, curr_cell.Row, curr_cell.Col));
 
             // the loop goes over every possible value of the cell
             foreach (int option in curr_cell.GetOptions())
