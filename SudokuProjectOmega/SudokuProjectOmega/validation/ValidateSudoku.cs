@@ -10,7 +10,7 @@ namespace SudokuProjectOmega
     /// The is a statics call with the role of validating the sudoku input.
     /// The class is an inportant piece in solving the sudoku
     /// </summary>
-    static class ValidateSudoku
+    public static class ValidateSudoku
     {
         /// <summary>
         /// The function is used to validate the users input.
