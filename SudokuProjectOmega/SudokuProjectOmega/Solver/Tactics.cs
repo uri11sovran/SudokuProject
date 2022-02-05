@@ -35,19 +35,27 @@ namespace SudokuProjectOmega
         public static int Singles(Board board)
         {
             Cell curr_cell;
-            int i, j, count = 0;
+            int i, j, count = 0; // count - number of cells reveled
 
             for (i = 0; i < board.Size; i++)
             {
                 for (j = 0; j < board.Size; j++)
                 {
-                    curr_cell = board.GetCell(i, j);
+                    curr_cell = board.GetCell(i, j); // gets the current cell
+
+                    // checks if the tactics are able to revel the cell only if
+                    // the cell is not alredy reveled
                     if (curr_cell.Value == 0)
                     {
+                        // checks if the cell is a hidden single
                         count += HiddenSingles(board, i, j);
+
+                        // if steel unknown checks if the cell is a naked single
                         if (curr_cell.Value == 0)
                         {
+                            // deletes former cell option that were reveled
                             curr_cell.DeleteOption(InvalidOperators(board, i, j));
+                            // if the cell has only one opiton, the cell is a naked single
                             if (curr_cell.NumOfOptions() == 1)
                             {
                                 curr_cell.Value = curr_cell.GetOption(0);
@@ -75,13 +83,13 @@ namespace SudokuProjectOmega
         /// <returns> 1 if the cell is a hidden single 0 if not </returns>
         public static int HiddenSingles(Board board, int row, int col)
         {
-            int count = 0;
+            int count = 0; // 1 - the cell is a hidden single, 0 - the cell is not a hidden single
 
-            count += FindSingles(board, board.GetRow(row, col), row, col);
+            count += FindSingles(board, board.GetRow(row, col), row, col); // check if the cell is a single in the row
             if(count == 0)
-                count += FindSingles(board, board.GetCol(row, col), row, col);
-            if(count == 0)
-                count += FindSingles(board, board.GetSquere(row, col), row, col);
+                count += FindSingles(board, board.GetCol(row, col), row, col); // check if the cell is a single in the col
+            if (count == 0)
+                count += FindSingles(board, board.GetSquere(row, col), row, col); // check if the cell is a single in the squere
 
             return count;
         }
@@ -98,11 +106,12 @@ namespace SudokuProjectOmega
         public static int FindSingles(Board board, List<Cell> sequence, int row, int col)
         {
             int i, count = 0;
-            bool does_exist = false;
+            bool does_exist = false; // a flag that checks if the cell was found to be a hidden single
             int[] options = board.GetCell(row, col).GetOptions();
 
             foreach (int option in options)
             {
+                // checks if the option only exist in the cell
                 for (i = 0; i < sequence.Count && !does_exist; i++)
                 {
                     if (sequence[i].Row != row || sequence[i].Col != col)
@@ -112,6 +121,7 @@ namespace SudokuProjectOmega
                             does_exist = true;
                     }
                 }
+                // sets the cell value to the current cell
                 if (!does_exist)
                 {
                     board.GetCell(row, col).Value = option;
@@ -135,26 +145,28 @@ namespace SudokuProjectOmega
         /// <returns> A list contaning all the invalid values.. </returns>
         public static List<int> InvalidOperators(Board board, int row, int col)
         {
-            List<int> invalid_numbers = new List<int>();
-            List<Cell> squere;
+            List<int> invalid_options = new List<int>(); // a list of the invalid options
+            List<Cell> squere; // a list of cells in the cells squere
             int i;
 
+            // adds every invalid option in the row/col of the cell to the invalid_options list
             for (i = 0; i < board.Size; i++)
             {
                 if (board.Get(row, i) != 0 && i != col)
-                    invalid_numbers.Add(board.Get(row, i));
+                    invalid_options.Add(board.Get(row, i));
                 if (board.Get(i, col) != 0 && i != row)
-                    invalid_numbers.Add(board.Get(i, col));
+                    invalid_options.Add(board.Get(i, col));
             }
 
+            // adds every invalid opiton in the squere to the invalid_options list
             squere = board.GetSquere(row, col);
             foreach (Cell c in squere)
             {
                 if (c.Value != 0)
-                    invalid_numbers.Add(c.Value);
+                    invalid_options.Add(c.Value);
             }
 
-            return invalid_numbers;
+            return invalid_options;
         }
     }
 }

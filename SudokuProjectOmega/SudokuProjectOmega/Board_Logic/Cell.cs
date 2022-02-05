@@ -78,6 +78,7 @@ namespace SudokuProjectOmega
         {
             foreach (int invalidOption in invalidOptions)
             {
+                // uses the ToArray list function to delete invalid value
                 options = options.Where(val => val != invalidOption).ToArray();
             }
 
@@ -109,7 +110,7 @@ namespace SudokuProjectOmega
         /// <returns></returns>
         public object Clone()
         {
-            Cell new_cell = new Cell(NumOfOptions(), Row, Col, Value);
+            Cell new_cell = new Cell(NumOfOptions(), Row, Col, Value); // a new cell with the same argumets as the cell to clone
             int i;
             
             for(i = 0; i < NumOfOptions(); i++)

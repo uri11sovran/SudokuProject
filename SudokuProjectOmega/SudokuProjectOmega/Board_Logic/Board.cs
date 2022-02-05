@@ -79,18 +79,20 @@ namespace SudokuProjectOmega
         }
 
         /// <summary>
-        /// The function is used to set the board when its first constructed.
+        /// The function is used to set the board when its first constructed
+        /// as initiates every cells options.
         /// </summary>
         /// <param name="board"> The board to initiate. </param>
         public void DeleteOperators()
         {
-            Cell curr_cell;
+            Cell curr_cell; // current cell to initiate
             int i, j;
 
             for (i = 0; i < Size; i++)
             {
                 for (j = 0; j < Size; j++)
                 {
+                    // deletes all impossible cell values
                     curr_cell = GetCell(i, j);
                     curr_cell.DeleteOption(Tactics.InvalidOperators(this, i, j));
                 }
@@ -98,7 +100,7 @@ namespace SudokuProjectOmega
         }
 
         /// <summary>
-        /// The dunction clones the _board cell matrix
+        /// The function clones the _board cell matrix
         /// </summary>
         /// <returns> a cloned cell matrix </returns>
         public Cell[,] CloneBoard()
@@ -177,6 +179,7 @@ namespace SudokuProjectOmega
         {
             List<Cell> Row = new List<Cell>();
 
+            // gets every cell in the Row
             for (int i = 0; i < Size; i++)
             {
                 Row.Add(GetCell(row, i));
@@ -197,6 +200,7 @@ namespace SudokuProjectOmega
         {
             List<Cell> Col = new List<Cell>();
 
+            // gets every cell in the Col
             for (int i = 0; i < Size; i++)
             {
                 Col.Add(GetCell(i, col));
@@ -217,9 +221,11 @@ namespace SudokuProjectOmega
         {
             List<Cell> squere = new List<Cell>();
             int sqrt = (int)Math.Sqrt((int)Size);
+            // calculates the first cell of the squere position
             int boxRowStart = row - row % sqrt;
             int boxColStart = col - col % sqrt;
 
+            // gets every cell in the squere
             for (int r = boxRowStart; r < boxRowStart + sqrt; r++)
             {
                 for (int d = boxColStart; d < boxColStart + sqrt; d++)
