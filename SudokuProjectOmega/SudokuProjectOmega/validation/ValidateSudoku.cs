@@ -23,6 +23,7 @@ namespace SudokuProjectOmega
         {
             double sqrt = Math.Sqrt(sudoku.Text.Length);
 
+            // checks if the board has a valid size
             if(sqrt - (int)sqrt > 0)
             {
                 throw new InvalidBoardSize();
@@ -66,7 +67,6 @@ namespace SudokuProjectOmega
                     if(board.Get(i, j) != 0 && 
                         !ValidatePosition(Tactics.InvalidOperators(board, i, j), board.Get(i, j)))
                     {
-                        Console.WriteLine("{0}", board.Get(i, j));
                         throw new InvalidBoradPositioning();
                     }
                 }
