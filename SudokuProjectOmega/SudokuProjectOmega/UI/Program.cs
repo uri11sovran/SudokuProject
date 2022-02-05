@@ -68,7 +68,7 @@ namespace SudokuProjectOmega
             catch (SudokuException invalid_sudoku)
             {
                 Console.WriteLine(invalid_sudoku.Message);
-                return invalid_sudoku.Message;
+                return invalid_sudoku.Message; // returns value for tests
             }
             catch (System.IO.FileNotFoundException)
             {
@@ -83,7 +83,10 @@ namespace SudokuProjectOmega
             // if the Solve function in the SudokuSolver returns false
             // the board is unsolvable
             if (!SudokuSolver.Solve(board))
+            {
+                Console.WriteLine("Unsolvable board");
                 return "Unsolvable board";
+            }
             Print.PrintBoard(board);
 
             if(choice == 2)
